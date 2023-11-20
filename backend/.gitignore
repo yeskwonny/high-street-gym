@@ -1,0 +1,105 @@
+# Dependency directories
+node_modules/
+
+# Optional: Cache directory
+.cache/
+
+# Optional: OS-specific files
+.DS_Store
+Thumbs.db
+
+# Optional: Logs
+logs/
+*.log
+
+# Optional: Environment variable files
+.env
+
+# Optional: Compiled binary addons (if any)
+build/Release/
+
+# Optional: Coverage directory
+coverage/
+
+# Optional: VS Code configuration
+.vscode/
+
+# Optional: OS-specific files
+.idea/
+
+# Optional: Yarn Integrity file
+.yarn-integrity
+
+# Optional: npm debug log
+npm-debug.log*
+
+# Optional: Yarn debug log
+yarn-debug.log*
+
+# Optional: .nyc_output directory
+.nyc_output/
+
+# Optional: Grunt intermediate storage
+.grunt/
+
+# Optional: Generated files
+*.rbc
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite
+*.sqlite3
+*.pyc
+
+# Optional: Compiled Python files
+__pycache__/
+
+# Optional: Compiled Java classes
+*.class
+
+# Optional: Compiled TypeScript files
+*.tsbuildinfo
+
+# Optional: Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Optional: Kendo UI Builder file
+kendo-ui-builder-out/
+
+# Optional: Next.js build output
+.next/
+
+# Optional: Nuxt.js build output
+.nuxt/
+
+# Optional: Storybook build output
+.storybook-out/
+
+# Optional: Pulumi stack metadata
+*.pulumi/
+
+# Optional: End-to-end test results
+__e2e__/
+
+# Optional: Cypress generated files
+cypress/screenshots/
+cypress/videos/
+
+# Optional: Puppeteer screenshots
+__screenshots__/
+
+# Optional: Elm package cache
+elm-stuff/
+
+# Optional: Docker compose file
+docker-compose.yml
+
+# Optional: Packer build file
+packer_cache/
+
+# Optional: Helm Chart output
+charts/
+
+# Optional: PIP environment
+pip-wheel-metadata/
