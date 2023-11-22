@@ -1,55 +1,66 @@
 const { db } = require("../database/mysql.js");
 
-function newBlog(id, datetime, user_id, title, content, fname, lname) {
+function newBookings(id, user_id, class_id, datetime, classDate) {
   return {
     id,
-    datetime,
     user_id,
-    title,
-    content,
-    fname,
-    lname,
+    class_id,
+    datetime,
+    classDate,
   };
 }
 
-async function getBlogsbylatest() {
-  const [allBlogResults] = await db.query(
-    `SELECT blogs.blog_id, blogs.blog_datetime, blogs.blog_user_id, blogs.blog_title, blogs.blog_content, users.user_firstname, users.user_lastname
-    FROM blogs
-    LEFT JOIN users ON blogs.blog_user_id = users.user_id
-    ORDER BY blogs.blog_datetime DESC`
+//get booking by user ID
+async function getBookingByUserID(userID) {
+  const [bookingResults] = await db.query(
+    `SELECT * FROM bookings 
+     WHERE booking_user_id=?
+     ORDER BY booking_class_date ASC`,
+    userID
   );
-
-  return await allBlogResults.map((blogResult) =>
-    newBlog(
-      blogResult.blog_id,
-      blogResult.blog_datetime,
-      blogResult.blog_user_id,
-      blogResult.blog_title,
-      blogResult.blog_content,
-      blogResult.user_firstname,
-      blogResult.user_lastname
-    )
-  );
+  // console.log(bookingResults);
+  if (bookingResults.length > 0) {
+    return Promise.resolve(
+      bookingResults.map((result) => {
+        return newBookings(
+          result.booking_id,
+          result.booking_user_id,
+          result.booking_class_id,
+          result.booking_created_datetime,
+          result.booking_class_date
+        );
+      })
+    );
+  } else {
+    return Promise.reject(`no results found with ${userID}`);
+  }
 }
+// getBookingByUserID(8).then((result) => console.log(result));
 
-// create blogs
-async function createBlog(blog) {
-  delete blog.id;
-
+//Create booking
+async function createBooking(booking) {
+  delete booking.id;
   return db
     .query(
-      "INSERT INTO blogs (blog_datetime, blog_user_id, blog_title, blog_content)" +
-        "VALUE (?,?,?,?)",
-      [blog.datetime, blog.user_id, blog.title, blog.content]
+      "INSERT INTO bookings (booking_user_id,booking_class_id,booking_created_datetime,booking_class_date) " +
+        "VALUES(?,?,?,?)",
+      [booking.user_id, booking.class_id, booking.datetime, booking.classDate]
     )
     .then(([result]) => {
-      return { ...blog, id: result.insertId };
+      return { ...booking, id: result.insertId };
     });
 }
 
+//delete booking
+async function deleteBooking(bookingId) {
+  return db
+    .query("DELETE FROM bookings WHERE booking_id=? ", bookingId)
+    .then((result) => console.log(result));
+}
+
 module.exports = {
-  newBlog,
-  getBlogsbylatest,
-  createBlog,
+  newBookings,
+  getBookingByUserID,
+  createBooking,
+  deleteBooking,
 };
